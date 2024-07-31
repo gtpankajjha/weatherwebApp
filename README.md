@@ -68,3 +68,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# weatherwebApp
+This Weather App is a simple and user-friendly React application that allows users to fetch and display weather information for any city in the world. The application utilizes the OpenWeatherMap API to retrieve current weather data and offers the flexibility to display temperatures in either Celsius or Fahrenheit.
