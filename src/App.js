@@ -12,6 +12,7 @@ const App = () => {
   const API_KEY = 'ba0ff2c8fbd73c5f996b7f9b34482703';
   const API_BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
 
+  // use for change from farnhite to celcius toggel
   const handleSearch = async () => {
     try {
       setError(null);
