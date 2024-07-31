@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { TextField, Button, Typography, Container, Paper } from '@mui/material';
 import './App.css'; // Import your CSS file
@@ -9,7 +9,7 @@ const App = () => {
   const [error, setError] = useState(null);
   const [unit, setUnit] = useState('metric'); // 'metric' for Celsius, 'imperial' for Fahrenheit
 
-  const API_KEY = 'your_openweathermap_api_key';
+  const API_KEY = 'ba0ff2c8fbd73c5f996b7f9b34482703';
   const API_BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
 
   const handleSearch = async () => {
@@ -29,8 +29,30 @@ const App = () => {
   };
 
   const toggleUnit = () => {
-    setUnit(unit === 'metric' ? 'imperial' : 'metric');
+    if (weather) {
+      const newUnit = unit === 'metric' ? 'imperial' : 'metric';
+      const convertedWeather = { ...weather };
+
+      if (unit === 'metric') {
+        // Convert from Celsius to Fahrenheit
+        convertedWeather.main.temp = (weather.main.temp * 9/5) + 32;
+      } else {
+        // Convert from Fahrenheit to Celsius
+        convertedWeather.main.temp = (weather.main.temp - 32) * 5/9;
+      }
+
+      setWeather(convertedWeather);
+      setUnit(newUnit);
+    } else {
+      setUnit(unit === 'metric' ? 'imperial' : 'metric');
+    }
   };
+
+  useEffect(() => {
+    if (weather) {
+      handleSearch();
+    }
+  }, [unit]);
 
   return (
     <div className="app-container">
@@ -57,7 +79,7 @@ const App = () => {
           {weather && (
             <div style={{ marginTop: '2rem' }}>
               <Typography variant="h6">
-                Temperature: {weather.main.temp}°{unit === 'metric' ? 'C' : 'F'}
+                Temperature: {weather.main.temp.toFixed(1)}°{unit === 'metric' ? 'C' : 'F'}
               </Typography>
               <Typography variant="h6">
                 Description: {weather.weather[0].description}
